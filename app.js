@@ -43,7 +43,3 @@ bot.on('message', (msg) => {
 // });
 
 // app.set('port', (process.env.PORT || 5000));
-
-// setTimeout(() => {
-//   process.exit(0);
-// }, 10000);
