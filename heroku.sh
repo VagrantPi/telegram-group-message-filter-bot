@@ -1,1 +1,0 @@
-heroku ps:restart web
