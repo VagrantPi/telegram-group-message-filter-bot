@@ -1,4 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
+const app = express();
 
 const token = process.env.token;
 const fromChatId = process.env.fromChatId;
@@ -29,3 +31,19 @@ bot.on('message', (msg) => {
     } 
   }
 });
+
+app.set('port', (process.env.PORT || 5000));
+
+//For avoid Heroku $PORT error
+app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
+
+app.set('port', (process.env.PORT || 5000));
+
+setTimeout(() => {
+  process.exit(0);
+}, 10000);
