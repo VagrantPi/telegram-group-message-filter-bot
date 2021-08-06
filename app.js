@@ -1,11 +1,12 @@
 const TelegramBot = require('node-telegram-bot-api');
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 
 const token = process.env.token;
 const fromChatId = process.env.fromChatId;
 const toChatId = process.env.toChatId;
 const userId = process.env.userId;
+const log = process.env.telegram_log
 
 if (!token) {
   throw new Error('token not set')
@@ -20,7 +21,7 @@ if (!token) {
 const bot = new TelegramBot(token, {polling: true});
 
 bot.on('message', (msg) => {
-  console.log('msg.chat.id', msg);
+  if (log === '1') console.log('msg', msg);
   if (msg && (`${msg.chat.id}` === `${fromChatId}`) && (`${msg.from.id}` === `${userId}`)) {
     if (msg.photo) {
       bot.sendPhoto(toChatId, msg.photo[msg.photo.length - 1].file_id)
